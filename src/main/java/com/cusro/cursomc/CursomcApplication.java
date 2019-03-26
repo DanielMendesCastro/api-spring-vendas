@@ -1,5 +1,6 @@
 package com.cusro.cursomc;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,6 +18,8 @@ import com.cusro.cursomc.domain.Produto;
 import com.cusro.cursomc.domain.enums.TipoCliente;
 import com.cusro.cursomc.repositories.CategoriaRepository;
 import com.cusro.cursomc.repositories.CidadeRepository;
+import com.cusro.cursomc.repositories.ClienteRepository;
+import com.cusro.cursomc.repositories.EnderecoRepository;
 import com.cusro.cursomc.repositories.EstadoRepository;
 import com.cusro.cursomc.repositories.ProdutoRepository;
 
@@ -29,6 +32,12 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private CategoriaRepository repo;
+	
+	@Autowired
+	private ClienteRepository repoCliente;
+	
+	@Autowired
+	private EnderecoRepository repoEndereco;
 	
 	@Autowired
 	private CidadeRepository repoCidade;
@@ -76,8 +85,11 @@ public class CursomcApplication implements CommandLineRunner {
 		cli1.getTelefones().addAll((Arrays.asList("993654874","995487521")));
 		
 		
-		Endereco e1  = new Endereco(null,"Rua Flores",300,"ap 500","Jardim","14402547",cli1,c1);
-		Endereco e2 = new Endereco(null, "Rua Matos da Silva", 550, "Ap 402", "Paulista", "14402658", cli1, c2);
+		Endereco e1  = new Endereco(null,"Rua Flores","300","ap 500","Jardim","14402547",cli1,c1);
+		Endereco e2 = new Endereco(null, "Rua Matos da Silva", "550", "Ap 402", "Paulista", "14402658", cli1, c2);
+		
+		repoCliente.saveAll(Arrays.asList(cli1));
+		repoEndereco.saveAll(Arrays.asList(e1,e2));
 		
 	}
 

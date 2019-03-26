@@ -1,11 +1,15 @@
 package com.cusro.cursomc.domain;
 
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,23 +18,41 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.cusro.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+
+
 	@Id
+
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Integer id;
+
 	private String nome;
+
+	
+
+	@Column(unique=true)
 	private String email;
 	private String cpfCnpj;
-	private Integer tipo;
-	@OneToMany(mappedBy="clientes")
-	private List<Endereco> enderecos;
+	private Integer tipo;	
+
+	@JsonIgnore
+	private String senha;	
+
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
+	
 	@ElementCollection
+
 	@CollectionTable(name="TELEFONE")
+
 	private Set<String> telefones = new HashSet<>();
 	
 	public Cliente() {
