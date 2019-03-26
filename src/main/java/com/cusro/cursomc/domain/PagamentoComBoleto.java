@@ -2,8 +2,11 @@ package com.cusro.cursomc.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.cusro.cursomc.domain.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 
 

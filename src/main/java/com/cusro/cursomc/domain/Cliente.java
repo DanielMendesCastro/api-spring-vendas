@@ -42,6 +42,8 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfCnpj;
 	private Integer tipo;
+	
+	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	@JsonIgnore
