@@ -41,7 +41,8 @@ public class Cliente implements Serializable {
 	@Column(unique=true)
 	private String email;
 	private String cpfCnpj;
-	private Integer tipo;	
+	private Integer tipo;
+	private List<Pedido> pedidos = new ArrayList<>();
 
 	@JsonIgnore
 	private String senha;	
@@ -147,6 +148,14 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 }
