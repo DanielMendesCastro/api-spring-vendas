@@ -9,6 +9,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.cusro.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Pagamento implements Serializable{
@@ -18,7 +19,8 @@ public class Pagamento implements Serializable{
 	@Id
 	private Integer id;
 	private EstadoPagamento estado; 
-	
+
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId

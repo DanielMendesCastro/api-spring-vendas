@@ -33,7 +33,7 @@ import com.cusro.cursomc.repositories.EnderecoRepository;
 import com.cusro.cursomc.repositories.EstadoRepository;
 import com.cusro.cursomc.repositories.ItemPedidoRepository;
 import com.cusro.cursomc.repositories.PagamentoRepository;
-import com.cusro.cursomc.repositories.PedidoRepository;
+import com.cusro.cursomc.repositories.PedidoReposotory;
 import com.cusro.cursomc.repositories.ProdutoRepository;
 
 
@@ -71,7 +71,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 
-	private PedidoRepository pedidoRepository;
+	private PedidoReposotory pedidoRepository;
 
 	@Autowired
 
@@ -191,7 +191,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 		
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		
 
