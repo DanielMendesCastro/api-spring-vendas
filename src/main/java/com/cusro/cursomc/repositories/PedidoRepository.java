@@ -3,9 +3,9 @@ package com.cusro.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cusro.cursomc.domain.Pagamento;
+import com.cusro.cursomc.domain.Pedido;
 
 @Repository
-public interface  PagamentoRepository  extends JpaRepository<Pagamento, Integer> {
+public interface  PedidoRepository  extends JpaRepository<Pedido, Integer> {
 
 }
