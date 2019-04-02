@@ -54,8 +54,7 @@ public class CategoriaService {
 	
 	public Page<Categoria> fidPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		
-		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
-		
+		PageRequest paginacao = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);		
 		
 		return repository.findAll(paginacao);
 				
