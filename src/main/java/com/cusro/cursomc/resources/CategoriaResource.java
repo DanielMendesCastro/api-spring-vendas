@@ -37,9 +37,16 @@ public class CategoriaResource {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok(obj);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
+		Categoria obj = service.insert(objDTO.fromCategoria());
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 
 	@RequestMapping(value = "/Page", method = RequestMethod.GET)
-	public ResponseEntity<Page<CategoriaDTO>> findAll(
+	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value="page",defaultValue="0")Integer page, 
 			@RequestParam(value="linesPerPage",defaultValue="24")Integer linesPerPage, 
 			@RequestParam(value="orderBy",defaultValue="nome")String orderBy, 
@@ -51,17 +58,10 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ResponseEntity<List<CategoriaDTO>> findPage() {
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
 		List<Categoria> lista = service.findAll();
 		return ResponseEntity
 				.ok(lista.stream().map(obj -> new CategoriaDTO(obj.getId(), obj.getNome())).collect(toList()));
-	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
-		Categoria obj = service.insert(objDTO.fromCategoria());
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

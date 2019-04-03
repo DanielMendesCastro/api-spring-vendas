@@ -3,8 +3,7 @@ package com.cusro.cursomc.dto;
 import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.internal.util.privilegedactions.GetInstancesFromServiceLoader;
+import javax.validation.constraints.NotEmpty;
 
 import com.cusro.cursomc.domain.Categoria;
 

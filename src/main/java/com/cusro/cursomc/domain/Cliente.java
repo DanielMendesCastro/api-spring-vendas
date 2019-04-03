@@ -1,6 +1,5 @@
 package com.cusro.cursomc.domain;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,39 +24,35 @@ public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
-
 	@Id
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private Integer id;
 
 	private String nome;
 
-	
-
-	@Column(unique=true)
+	@Column(unique = true)
 	private String email;
 	private String cpfCnpj;
 	private Integer tipo;
-	
+
 	@JsonIgnore
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	@JsonIgnore
-	private String senha;	
+	private String senha;
 
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
-	@CollectionTable(name="TELEFONE")
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	public Cliente() {
-		
+
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipo) {
@@ -66,7 +61,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfCnpj = cpfCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = tipo == null ? null : tipo.getCod();
 	}
 
 	public Integer getId() {
@@ -157,5 +152,5 @@ public class Cliente implements Serializable {
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	
+
 }
