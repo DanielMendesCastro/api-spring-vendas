@@ -2,11 +2,19 @@ package com.cusro.cursomc.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.internal.util.privilegedactions.GetInstancesFromServiceLoader;
+
+import com.cusro.cursomc.domain.Categoria;
+
 public class CategoriaDTO  implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	@NotEmpty(message="Preenchimento Obrigatorio")
+	@Length(min=5,max = 80,message="O tamanho deve ser entre 5 e 80 caracteres")
 	private String Nome;
 	
 	public CategoriaDTO(Integer id, String nome) {
@@ -29,5 +37,10 @@ public class CategoriaDTO  implements Serializable {
 
 	public void setNome(String nome) {
 		Nome = nome;
-	}	
+	}
+	
+	public Categoria fromCategoria() {
+		return new Categoria(id,Nome);
+	}
+	
 }

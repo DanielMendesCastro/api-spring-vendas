@@ -110,7 +110,7 @@ public class CursomcApplication implements CommandLineRunner {
 		Categoria cat6 = new Categoria(null, "Decoração");
 
 		Categoria cat7 = new Categoria(null, "Perfumaria");
-
+		
 		
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);

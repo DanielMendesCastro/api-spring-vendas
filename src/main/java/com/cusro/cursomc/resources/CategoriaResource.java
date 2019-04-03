@@ -5,10 +5,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collector;
 
+import javax.validation.Valid;
+
 import org.hibernate.transform.ToListResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,20 +38,19 @@ public class CategoriaResource {
 		return ResponseEntity.ok(obj);
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/Page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findAll(
 			@RequestParam(value="page",defaultValue="0")Integer page, 
 			@RequestParam(value="linesPerPage",defaultValue="24")Integer linesPerPage, 
 			@RequestParam(value="orderBy",defaultValue="nome")String orderBy, 
-			@RequestParam(value="direction",defaultValue="DESC")String direction) {
-		
+			@RequestParam(value="direction",defaultValue="DESC")String direction) {		
 		Page<Categoria> lista = service.fidPage(page, linesPerPage, direction,orderBy);
 		
 		return ResponseEntity
 				.ok(lista.map(obj -> new CategoriaDTO(obj.getId(), obj.getNome())));
 	}
 	
-	@RequestMapping(value = "/Page", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findPage() {
 		List<Categoria> lista = service.findAll();
 		return ResponseEntity
@@ -56,15 +58,15 @@ public class CategoriaResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO) {
+		Categoria obj = service.insert(objDTO.fromCategoria());
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
-		obj = service.update(obj);
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDTO, @PathVariable Integer id) {
+		Categoria obj = service.update(objDTO.fromCategoria());
 		return ResponseEntity.noContent().build();
 	}
 
