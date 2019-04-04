@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+
+import com.cusro.cursomc.domain.Categoria;
 import com.cusro.cursomc.domain.Cliente;
 import com.cusro.cursomc.repositories.ClienteRepository;
 import com.cusro.cursomc.services.Exceptions.ObjectNotFoundException;
@@ -26,6 +28,11 @@ public class ClienteService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
+	
 	public Cliente update(Cliente obj) {
 		Cliente cli  = find(obj.getId());
 		UpdateData(cli, obj);
@@ -37,7 +44,7 @@ public class ClienteService {
 			repository.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new ObjectNotFoundException("Cliente vincula a produtos");
+			throw new ObjectNotFoundException("Cliente possui Pedidos");
 		}
 		
 	}
